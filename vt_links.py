@@ -21,157 +21,153 @@ import vt
 from openpyxl.styles import Font
 from openpyxl import Workbook
 
-# key_value = '' <-- Este valor se recibirá del main,
 
-# La siguiente línea está incluida por motivos de prueba individual del
-# script. Eliminar en el script final.
+def scan_link(key_value, links):
+    try:
+        client = vt.Client(key_value)
 
-key_value = input('Ingrese su llave api: ')
+        # Para la estructura básica del reporte
 
-client = vt.Client(key_value)
+        book=Workbook()
 
-# Para la estructura básica del reporte
+        dest_filename = 'reporte_analizador_urls.xlsx'
 
-book=Workbook()
+        sheet=book.active
 
-dest_filename = 'reporte_analizador_urls.xlsx'
+        sheet.title = ('Reporte')
 
-sheet=book.active
+        sheet.merge_cells('C3:J3')
 
-sheet.title = ('Reporte')
+        sheet['C3'].font = Font(bold=True)
 
-sheet.merge_cells('C3:J3')
+        sheet['C3'] = 'URL'
 
-sheet['C3'].font = Font(bold=True)
+        sheet.merge_cells('K3:L3')
 
-sheet['C3'] = 'URL'
+        sheet['K3'].font = Font(bold=True)
 
-sheet.merge_cells('K3:L3')
+        sheet['K3'] = 'Fecha de análisis'
 
-sheet['K3'].font = Font(bold=True)
+        sheet.merge_cells('M3:N3')
 
-sheet['K3'] = 'Fecha de análisis'
+        sheet['M3'].font = Font(bold=True)
 
-sheet.merge_cells('M3:N3')
+        sheet['M3'] = 'Total de análisis'
 
-sheet['M3'].font = Font(bold=True)
+        sheet.merge_cells('O3:P3')
 
-sheet['M3'] = 'Total de análisis'
+        sheet['O3'].font = Font(bold=True)
 
-sheet.merge_cells('O3:P3')
+        sheet['O3'] = 'Riesgo'
 
-sheet['O3'].font = Font(bold=True)
+        analysis_array= []
 
-sheet['O3'] = 'Riesgo'
+        date_array= []
 
-analysis_array= []
+        # Para la obtención de los análisis
 
-date_array= []
-
-# Para la obtención de los análisis
-
-# links = ''  <-- En la versión final, este valor se obtendrá del main
-
-# La siguiente línea está incluida por propósitos de prueba individual del
-# script. Eliminar en la versión final.
-
-links= ['https://www.google.com/search?q=python+virtual+environment&rlz=1C1CHZN_esMX919MX919&oq=python+virtual&aqs=chrome.0.0i20i263i512j69i57j0i512l3j0i395i512l2j0i512l3.4661j1j7&sourceid=chrome&ie=UTF-8','https://docs.python.org/3/library/datetime.html#module-datetime','https://www.youtube.com/watch?v=DWYKYTWYZAU']
-
-counter = 0
-
-i = 0
-
-for link in links:
-
-    if counter==4:
-
-        print('Límite de links alcanzado. El análisis de las url continuará\
- en un minuto.')
-
-        time.sleep(60)
+        # links = ''  <-- En la versión final, este valor se obtendrá del main
 
         counter = 0
-  
-    response = requests.get(link)
 
-    if response.status_code == 200:
-    
-        link_id = vt.url_id(links[i])
-    
-        try:
-    
-            analysis = client.get_object('/urls/{}'.format(link_id))
+        i = 0
 
-            stats = analysis.last_analysis_stats
-  
-            date = analysis.last_analysis_date
+        for link in links:
 
-            analysis_array.append(stats)
+            if counter==4:
 
-            date_array.append(date)
-            print(date_array)
+                print('Límite de links alcanzado. El análisis de las url continuará\
+        en un minuto.')
 
-        except:
+                time.sleep(60)
+
+                counter = 0
         
-            print('Sucedió un error al analizar el enlace: ',links[i])
-       
-            links.remove(links[i])
+            response = requests.get(link)
 
-        print(links[i])
-        i += 1
+            if response.status_code == 200:
+            
+                link_id = vt.url_id(links[i])
+            
+                try:
+            
+                    analysis = client.get_object('/urls/{}'.format(link_id))
 
-        counter += 1
-
-
-# Para ingresar los datos obtenidos al reporte
-
-i = 4
-j = 4
-k = 4
-
-
-for i in range (4, len(links)+4):
-    
-    sheet.merge_cells(f'C{i}:J{i}')
-    
-    sheet[f'C{i}'] = links[i-4]
-    
-for j in range (4, len(date_array)+4):
-
-    sheet.merge_cells(f'K{j}:L{j}')
-    
-    sheet[f'K{j}'] = date_array[j-4]
-
-for k in range (4,len(analysis_array)+4):
-    
-    sheet.merge_cells(f'M{k}:N{k}')
-    
-    harmless = (analysis_array[k-4])['harmless']
-
-    malicious = (analysis_array[k-4])['malicious']
-
-    tot_ans= harmless + malicious
-
-    sheet[f'M{k}'] = tot_ans
-
-    posit = (analysis_array[k-4])['malicious']
-
-    sheet.merge_cells(f'O{k}:P{k}')
-
-    if (posit<=3):
+                    stats = analysis.last_analysis_stats
         
-        sheet[f'O{k}'] = 'Baja'
+                    date = analysis.last_analysis_date
 
-    elif (posit>3 and posit<=10):
+                    analysis_array.append(stats)
 
-        sheet[f'O{k}'] = 'Media'
+                    date_array.append(date)
+                    print(date_array)
 
-    elif (posit>10):
+                except:
+                
+                    print('Sucedió un error al analizar el enlace: ',links[i])
+            
+                    links.remove(links[i])
 
-        sheet[f'O{k}'] = 'Alta'
+                print(links[i])
+                i += 1
 
-book.save(filename = 'reporte de urls.xlsx')
+                counter += 1
 
-print('Análisis completado. Podrá encontrar el reporte en excel en el')
 
-print('directorio actual.')
+        # Para ingresar los datos obtenidos al reporte
+
+        i = 4
+        j = 4
+        k = 4
+
+
+        for i in range (4, len(links)+4):
+            
+            sheet.merge_cells(f'C{i}:J{i}')
+            
+            sheet[f'C{i}'] = links[i-4]
+            
+        for j in range (4, len(date_array)+4):
+
+            sheet.merge_cells(f'K{j}:L{j}')
+            
+            sheet[f'K{j}'] = date_array[j-4]
+
+        for k in range (4,len(analysis_array)+4):
+            
+            sheet.merge_cells(f'M{k}:N{k}')
+            
+            harmless = (analysis_array[k-4])['harmless']
+
+            malicious = (analysis_array[k-4])['malicious']
+
+            tot_ans= harmless + malicious
+
+            sheet[f'M{k}'] = tot_ans
+
+            posit = (analysis_array[k-4])['malicious']
+
+            sheet.merge_cells(f'O{k}:P{k}')
+
+            if (posit<=3):
+                
+                sheet[f'O{k}'] = 'Baja'
+
+            elif (posit>3 and posit<=10):
+
+                sheet[f'O{k}'] = 'Media'
+
+            elif (posit>10):
+
+                sheet[f'O{k}'] = 'Alta'
+
+        book.save(filename = 'reporte de urls.xlsx')
+
+        print('Análisis de links completado. Podrá encontrar el reporte en excel en el')
+
+        print('directorio actual.')
+        return True
+
+    except:
+        print("Error al analizar links.")
+        return False
