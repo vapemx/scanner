@@ -8,14 +8,16 @@ import nmapscan
 import scan_links
 import scan_pdf
 import scan_files
+import scan_img
 
 
 def organizer(content, output):
     links = []
     for element in content:
         #El elemento es una imagen
-        if re.search('.png', element) or re.search('.jpg', element) or re.search('.jpeg', element) or re.search('.raw', content):
-            pass
+        if re.search('.png', element) or re.search('.jpg', element) or re.search('.jpeg', element):
+            scan_img.img_metadata(element, output)
+            logging.info("img analyzed")
 
         #El elemento es un pdf
         elif re.search('.pdf', element):
@@ -150,6 +152,19 @@ if __name__ == "__main__":
                 #Imagen
                 elif op == 3:
                     logging.info('User menu choice [3]')
+                    img = input("Ingrese la imagen a analizar o [q] para salir")
+                    
+                    while True:
+                        if re.search('.png', img) or re.search('.jpg', img) or re.search('.jpeg', img):
+                            scan_img.img_metadata(img, args.output)
+                            logging.info("img analyzed")
+                        
+                        elif img == "q":
+                            logging.info("User exit.")
+                            break
+
+                        else:
+                            print("El archivo no es una imagen válida")
                 
                 #PDF
                 elif op == 4:

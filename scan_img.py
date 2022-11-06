@@ -2,7 +2,7 @@ from PIL import Image
 from PIL.ExifTags import TAGS
 
 
-def metadata_img(imagename):
+def img_metadata(imagename, output):
     image = Image.open(imagename)
 
     info_dict = {
@@ -15,9 +15,9 @@ def metadata_img(imagename):
         "Image is Animated": getattr(image, "is_animated", False),
         "Frames in Image": getattr(image, "n_frames", 1)
 }
-    print("----Image metadata----")
+    output.write("----Image metadata----")
     for label, value in info_dict.items():
-        print(f"{label:25}: {value}")
+        output.write(f"{label:25}: {value}")
 
     exifdata = image.getexif()
 
@@ -28,7 +28,4 @@ def metadata_img(imagename):
 
         if isinstance(data, bytes):
             data = data.decode(encoding="utf-16")
-        print(f"{tag:25}: {data}")
-
-
-metadata_img("cam.jpg")
+        output.write(f"{tag:25}: {data}")
