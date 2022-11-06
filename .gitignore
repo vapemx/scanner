@@ -1,2 +1,4 @@
 venv/
 test_files/
+__pycache__/
+registry.log

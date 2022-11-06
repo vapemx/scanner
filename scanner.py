@@ -87,7 +87,7 @@ def menu():
     #En caso de que el usuario ingrese una letra
     except ValueError:
         print("Opción inválida")
-        return True
+        return False
 
 
 if __name__ == "__main__":
@@ -112,7 +112,7 @@ if __name__ == "__main__":
         op = True
         while op:
             op = menu()
-            if op == True:
+            if op == False:
                 logging.warning('User wrote a letter intead a number.')
                 
             elif op == 99:
@@ -128,16 +128,19 @@ if __name__ == "__main__":
                     links = []
                     logging.info('User menu choice [1]')
                     while True:
-                        link = input("Ingrese el link a analizar con formato http[s] o [q] para salir")
+                        link = input("Ingrese el link a analizar con formato http[s] o [q] para salir: ")
                         if re.search(r'(http\:\/\/|https\:\/\/)([a-z0-9][a-z0-9\-]*\.)+[a-z0-9][a-z0-9\-]', link):
                             links.append(link)
                             break
                         else:
                             print("Formato incorrecto")
-                            
-                    print("Ingrese su API key de virus total")
-                    key = getpass()
-                    ws = scan_links.scan_link(key, links)
+                    
+                    if not key:
+                        print("Ingrese su API key de virus total")
+                        key = getpass()
+                        ws = scan_links.scan_link(key, links)
+                    else:
+                        ws = scan_links.scan_link(key, links)
                     if ws:
                         logging.info("Correct link analysis")
                     else:
@@ -152,7 +155,7 @@ if __name__ == "__main__":
                 #Imagen
                 elif op == 3:
                     logging.info('User menu choice [3]')
-                    img = input("Ingrese la imagen a analizar o [q] para salir")
+                    img = input("Ingrese la imagen a analizar o [q] para salir: ")
                     
                     while True:
                         if re.search('.png', img) or re.search('.jpg', img) or re.search('.jpeg', img):
@@ -170,7 +173,7 @@ if __name__ == "__main__":
                 elif op == 4:
                     logging.info('User menu choice [4]')
                     while True:
-                        pdf = input("Ingrese el archivo pdf a analizar o [q] para salir")
+                        pdf = input("\nIngrese el archivo pdf a analizar o [q] para salir: ")
                         if re.search('.pdf', pdf):
                             try:
                                 scan_pdf.metadata(pdf, args.output)
@@ -189,9 +192,12 @@ if __name__ == "__main__":
                 elif op == 5:
                     logging.info('User menu choice [5]')
                     file = input("Ingrese el nombre del archivo a analizar: ")
-                    print("Ingrese su API key de virus total")
-                    key = getpass()
-                    fs = scan_files.file_vt(key, file, args.output)
+                    if not key:
+                        print("Ingrese su API key de virus total")
+                        key = getpass()
+                        fs = scan_files.file_vt(key, file, args.output)
+                    else:
+                        fs = scan_files.file_vt(key, file, args.output)
                     if fs:
                         logging.info("Correct file analysis")
                     else:

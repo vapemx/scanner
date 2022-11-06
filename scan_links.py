@@ -76,7 +76,7 @@ def scan_link(key_value, links):
 
             if counter==4:
 
-                print('Límite de links alcanzado. El análisis de las url continuará\
+                print('\nLímite de links alcanzado. El análisis de las url continuará\
         en un minuto.')
 
                 time.sleep(60)
@@ -100,7 +100,7 @@ def scan_link(key_value, links):
                     analysis_array.append(stats)
 
                     date_array.append(date)
-                    print(date_array)
+                    #print(date_array)
 
                 except:
                 
@@ -108,7 +108,7 @@ def scan_link(key_value, links):
             
                     links.remove(links[i])
 
-                print(links[i])
+                #print(links[i])
                 i += 1
 
                 counter += 1

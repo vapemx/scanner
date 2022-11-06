@@ -3,7 +3,7 @@ import os.path
 import requests
 
 
-def scan_file_vt(api_key, filename, output):
+def file_vt(api_key, filename, output):
 
     files = {"file": (os.path.basename(filename), open(os.path.abspath(filename), "rb"))}
 
