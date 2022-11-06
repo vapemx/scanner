@@ -22,7 +22,7 @@ from openpyxl.styles import Font
 from openpyxl import Workbook
 
 
-def scan_link(key_value, links):
+def scan_link(key_value, links, output):
     try:
         client = vt.Client(key_value)
 
@@ -104,7 +104,7 @@ def scan_link(key_value, links):
 
                 except:
                 
-                    print('Sucedió un error al analizar el enlace: ',links[i])
+                    output.write('\n\nSucedió un error al analizar el enlace: ',links[i])
             
                     links.remove(links[i])
 
@@ -163,11 +163,9 @@ def scan_link(key_value, links):
 
         book.save(filename = 'reporte de urls.xlsx')
 
-        print('Análisis de links completado. Podrá encontrar el reporte en excel en el')
-
-        print('directorio actual.')
+        output.write('\nAnálisis de links completado. Podrá encontrar el reporte en excel en el directorio actual.')
         return True
 
     except:
-        print("Error al analizar links.")
+        output.write("\nError al analizar links.")
         return False

@@ -15,6 +15,7 @@ def organizer(content, output):
     links = []
     key = None
     for element in content:
+        output.write("-----------------------------------------------------")
         #El elemento es una imagen
         if re.search('.png', element) or re.search('.jpg', element) or re.search('.jpeg', element):
             scan_img.img_metadata(element, output)
@@ -27,10 +28,11 @@ def organizer(content, output):
         
         #Es un IP
         elif re.search(r'((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.){3}(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])', element):
+            logging.info("startting IP analysis")
             nmapscan.scan_ip(element, output)
         
         #Es una web
-        elif re.search(r'(http\:\/\/|https\:\/\/)?([a-z0-9][a-z0-9\-]*\.)+[a-z0-9][a-z0-9\-]', element):
+        elif re.search(r'(http\:\/\/|https\:\/\/)([a-z0-9][a-z0-9\-]*\.)+[a-z0-9][a-z0-9\-]', element):
             #Es una web en formato correcto
             if re.search(r'(http\:\/\/|https\:\/\/)([a-z0-9][a-z0-9\-]*\.)+[a-z0-9][a-z0-9\-]', element):
                 links.append(element)
@@ -40,11 +42,18 @@ def organizer(content, output):
         
         #Cualquier otro archivo
         else:
+            if re.search('.com', element) or re.search('.net', element) or re.search('.mx', element):
+                output.write("\nLink en formato inválido: " + element + "\n\n")
+                logging.warning("link: " + element + " in bad format")
+                continue
+
             if key:
+                logging.info("Starting web analysis")
                 fs = scan_files.file_vt(key, element, output)
             else:
-                print("Ingrese su API key de virus total")
+                print("\nIngrese su API key de virus total")
                 key = getpass()
+                logging.info("Starting web analysis")
                 fs = scan_files.file_vt(key, element, output)
             if fs:
                 logging.info("Correct file analysis")
@@ -53,9 +62,12 @@ def organizer(content, output):
     
     #Si hay links para analizar
     if links:
-        print("Ingrese su API key de virus total")
-        key = getpass()
-        ws = scan_links.scan_link(key, links)
+        if not key:
+            print("\nIngrese su API key de virus total")
+            key = getpass()
+            ws = scan_links.scan_link(key, links, output)
+        else:
+            ws = scan_links.scan_link(key, links, output)
         if ws:
             logging.info("Correct link analysis")
         else:
@@ -140,9 +152,11 @@ if __name__ == "__main__":
                     if not key:
                         print("Ingrese su API key de virus total")
                         key = getpass()
-                        ws = scan_links.scan_link(key, links)
+                        logging.info("Starting web analysis")
+                        ws = scan_links.scan_link(key, links, args.output)
                     else:
-                        ws = scan_links.scan_link(key, links)
+                        logging.info("Starting web analysis")
+                        ws = scan_links.scan_link(key, links, args.output)
                     if ws:
                         logging.info("Correct link analysis")
                     else:
@@ -155,6 +169,7 @@ if __name__ == "__main__":
                         ip = input("Ingrese la IP a analiazr: ")
                         if re.search(r'((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.){3}(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])', ip):
                             print("Analizando IP...")
+                            logging.info("Starting IP analysis")
                             nmapscan.scan_ip(ip, args.output)
                             break
                         else:
