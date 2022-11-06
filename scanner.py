@@ -23,7 +23,7 @@ def organizer(content, output):
         
         #Es un IP
         elif re.search(r'((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.){3}(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])', element):
-            nmapscan.scan_ip(element) #TODO: Return in fn, make cool output
+            nmapscan.scan_ip(element, output)
         
         #Es una web
         elif re.search(r'(http\:\/\/|https\:\/\/)?([a-z0-9][a-z0-9\-]*\.)+[a-z0-9][a-z0-9\-]', element):
@@ -31,6 +31,7 @@ def organizer(content, output):
             if re.search(r'(http\:\/\/|https\:\/\/)([a-z0-9][a-z0-9\-]*\.)+[a-z0-9][a-z0-9\-]', element):
                 links.append(element)
             else:
+                output.write("\nLink en formato inválido: " + element)
                 logging.warning("link: " + element + " in bad format")
         
         #Cualquier otro archivo
@@ -72,7 +73,7 @@ def menu():
         return op
     
     #En caso de que el usuario ingrese una letra
-    except ValueError as e:
+    except ValueError:
         print("Opción inválida")
         return True
 
@@ -108,7 +109,7 @@ if __name__ == "__main__":
                 print("Adiós!")
                 logging.info('Good bye!')
                 op = False
-            else:
+            elif op in range(1,6):
                 #Link
                 if op == 1:
                     links = []
@@ -157,3 +158,6 @@ if __name__ == "__main__":
                 #Archivo
                 elif op == 5:
                     logging.info('User menu choice [5]')
+            
+            else:
+                print("Opción inválida.")

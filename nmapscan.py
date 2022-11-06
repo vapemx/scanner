@@ -1,7 +1,7 @@
 import nmap
 
 
-def scan_ip(ip):
+def scan_ip(ip, rep):
 	nm = nmap.PortScanner()
 
 	puertos_abiertos=""
@@ -9,7 +9,7 @@ def scan_ip(ip):
 	count=0
 
 
-	rep= open("Reporte de Escaneo.txt", "a")
+	#rep= open("Reporte de IPs.txt", "a")
 	rep.write("\nLa IP Host dada: %s" % ip)
 	rep.write("\nEl estado de la IP es: %s" % nm[ip].state())
 	print("\nLa IP Host dada: %s" % ip)
