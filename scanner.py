@@ -13,6 +13,7 @@ import scan_img
 
 def organizer(content, output):
     links = []
+    key = None
     for element in content:
         #El elemento es una imagen
         if re.search('.png', element) or re.search('.jpg', element) or re.search('.jpeg', element):
@@ -110,6 +111,7 @@ if __name__ == "__main__":
     #En el caso contrario, se le da a escoger entre las funciones
     else:
         op = True
+        key = None
         while op:
             op = menu()
             if op == False:
@@ -149,24 +151,32 @@ if __name__ == "__main__":
                 #IP
                 elif op == 2:
                     logging.info('User menu choice [2]')
-                    ip = input("Ingrese la IP a analiazr: ")
-                    nmapscan.scan_ip(ip, args.output)
+                    while True:
+                        ip = input("Ingrese la IP a analiazr: ")
+                        if re.search(r'((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.){3}(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])', ip):
+                            print("Analizando IP...")
+                            nmapscan.scan_ip(ip, args.output)
+                            break
+                        else:
+                            print("IP incorrecta")
                 
                 #Imagen
                 elif op == 3:
                     logging.info('User menu choice [3]')
-                    img = input("Ingrese la imagen a analizar o [q] para salir: ")
-                    
+
                     while True:
+                        img = input("Ingrese la imagen a analizar o [q] para salir: ")
                         if re.search('.png', img) or re.search('.jpg', img) or re.search('.jpeg', img):
                             scan_img.img_metadata(img, args.output)
                             logging.info("img analyzed")
+                            break
                         
                         elif img == "q":
                             logging.info("User exit.")
                             break
 
                         else:
+                            logging.info("Invalid img.")
                             print("El archivo no es una imagen válida")
                 
                 #PDF
