@@ -7,6 +7,7 @@ from time import sleep
 import nmapscan
 import vt_links
 import scan_pdf
+import scan_files
 
 
 def organizer(content, output):
@@ -36,7 +37,16 @@ def organizer(content, output):
         
         #Cualquier otro archivo
         else:
-            pass
+            if key:
+                fs = scan_files.file_vt(key, element, output)
+            else:
+                print("Ingrese su API key de virus total")
+                key = getpass()
+                fs = scan_files.file_vt(key, element, output)
+            if fs:
+                logging.info("Correct file analysis")
+            else:
+                logging.error("Error in file analysis")    
     
     #Si hay links para analizar
     if links:
@@ -109,6 +119,7 @@ if __name__ == "__main__":
                 print("Adiós!")
                 logging.info('Good bye!')
                 op = False
+                
             elif op in range(1,6):
                 #Link
                 if op == 1:
@@ -133,9 +144,13 @@ if __name__ == "__main__":
                 #IP
                 elif op == 2:
                     logging.info('User menu choice [2]')
+                    ip = input("Ingrese la IP a analiazr: ")
+                    nmapscan.scan_ip(ip, args.output)
+                
                 #Imagen
                 elif op == 3:
                     logging.info('User menu choice [3]')
+                
                 #PDF
                 elif op == 4:
                     logging.info('User menu choice [4]')
@@ -158,6 +173,15 @@ if __name__ == "__main__":
                 #Archivo
                 elif op == 5:
                     logging.info('User menu choice [5]')
+                    file = input("Ingrese el nombre del archivo a analizar: ")
+                    print("Ingrese su API key de virus total")
+                    key = getpass()
+                    fs = scan_files.file_vt(key, file, args.output)
+                    if fs:
+                        logging.info("Correct file analysis")
+                    else:
+                        print("Error al analizar el archivo.")
+                        logging.error("Error in file analysis")   
             
             else:
                 print("Opción inválida.")
