@@ -5,7 +5,7 @@ import sys
 from getpass import getpass
 from time import sleep
 import nmapscan
-import vt_links
+import scan_links
 import scan_pdf
 import scan_files
 
@@ -52,7 +52,7 @@ def organizer(content, output):
     if links:
         print("Ingrese su API key de virus total")
         key = getpass()
-        ws = vt_links.scan_link(key, links)
+        ws = scan_links.scan_link(key, links)
         if ws:
             logging.info("Correct link analysis")
         else:
@@ -119,7 +119,7 @@ if __name__ == "__main__":
                 print("Adiós!")
                 logging.info('Good bye!')
                 op = False
-                
+
             elif op in range(1,6):
                 #Link
                 if op == 1:
@@ -135,7 +135,7 @@ if __name__ == "__main__":
                             
                     print("Ingrese su API key de virus total")
                     key = getpass()
-                    ws = vt_links.scan_link(key, links)
+                    ws = scan_links.scan_link(key, links)
                     if ws:
                         logging.info("Correct link analysis")
                     else:
