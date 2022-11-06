@@ -1,24 +1,30 @@
 import re
 import logging
 import argparse
+import sys
 from getpass import getpass
 from time import sleep
 import nmapscan
 import vt_links
+import scan_pdf
 
 
-def organizer(content):
+def organizer(content, output):
     links = []
     for element in content:
         #El elemento es una imagen
         if re.search('.png', element) or re.search('.jpg', element) or re.search('.jpeg', element) or re.search('.raw', content):
             pass
+
         #El elemento es un pdf
         elif re.search('.pdf', element):
-            pass
+            scan_pdf.metadata(element, output)
+            logging.info("PDF analyzed")
+        
         #Es un IP
         elif re.search(r'((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.){3}(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])', element):
             nmapscan.scan_ip(element) #TODO: Return in fn, make cool output
+        
         #Es una web
         elif re.search(r'(http\:\/\/|https\:\/\/)?([a-z0-9][a-z0-9\-]*\.)+[a-z0-9][a-z0-9\-]', element):
             #Es una web en formato correcto
@@ -26,6 +32,7 @@ def organizer(content):
                 links.append(element)
             else:
                 logging.warning("link: " + element + " in bad format")
+        
         #Cualquier otro archivo
         else:
             pass
@@ -78,13 +85,14 @@ if __name__ == "__main__":
                                                 en caso contrario, utlice el menú de interacción')
     
     parser.add_argument('--file', '-f', dest='file_txt', type=argparse.FileType('r'), help='Archivo de contenido a escanear')
+    parser.add_argument('--output', '-o', dest='output', type=argparse.FileType('w'), help='Arcvhivo de salida', default=sys.stdout)
     args = parser.parse_args()
 
     #En caso de que el usuario ingrese un parámetro, se ejecuta directo la función
     if args.file_txt:
         logging.info('User txt file parameter.')
         content = args.file_txt.read().split()
-        organizer(content)
+        organizer(content, args.output)
     
     #En el caso contrario, se le da a escoger entre las funciones
     else:
@@ -130,6 +138,22 @@ if __name__ == "__main__":
                 #PDF
                 elif op == 4:
                     logging.info('User menu choice [4]')
+                    while True:
+                        pdf = input("Ingrese el archivo pdf a analizar o [q] para salir")
+                        if re.search('.pdf', pdf):
+                            try:
+                                scan_pdf.metadata(pdf, args.output)
+                                logging.info("PDF analyzed")
+                            except:
+                                print("PDF no encontrado.")
+                                logging.error("PDF not found.")
+                        
+                        elif pdf == "q":
+                            logging.info("User exit.")
+                            break
+                        else:
+                            print("El archivo no es un PDF.")
+                
                 #Archivo
                 elif op == 5:
                     logging.info('User menu choice [5]')
