@@ -44,7 +44,7 @@ def organizer(content, output):
         
         #Cualquier otro archivo
         else:
-            if re.search('.com', element) or re.search('.net', element) or re.search('.mx', element):
+            if re.search('.com', element) or re.search('.net', element) or re.search('.mx', element) or re.search('.org', element) or re.search('.gob', element) or re.search('.gov', element):
                 output.write("\nLink en formato inválido: " + element + "\n\n")
                 logging.warning("link: " + element + " in bad format")
                 continue
