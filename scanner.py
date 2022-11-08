@@ -2,6 +2,7 @@ import re
 import logging
 import argparse
 import sys
+import os
 from getpass import getpass
 from time import sleep
 import nmapscan
@@ -9,6 +10,74 @@ import scan_links
 import scan_pdf
 import scan_files
 import scan_img
+import scan_process
+
+
+def menu_process():
+    os.system("cls")
+    while True:
+        print('''
+        ¿Qúe deseas hacer con los procesos?
+
+        [1]Mostrar todos
+        [2]Buscar un proceso por nombre
+        [3]Iniciar un proceso
+        [4]Detener un proceso
+        [99]Salir
+        ''')
+        op = input("\n--->  ")
+        
+
+        try:
+            op = int(op)
+
+        except:
+            print("Opción inválida.")
+            sleep(2)
+            os.system("cls")
+            continue
+
+
+        if op in range(1,5):
+            if op == 1:
+                scan_process.all_process()
+            
+            elif op == 2:
+                name = input("Ingrese el nombre del proceso a buscar:  ")
+                status = scan_process.one_process(name)
+                if status == False:
+                    print("Error al buscar, nombre no encontrado")
+                    logging.warning("Failed to find process" + name)
+                else:
+                    logging.info("Process searched: " + name)
+            
+            elif op == 3:
+                name = input("Ingrese el nombre del proceso a iniciar: ")
+                status = scan_process.start_process(name)
+                if status == False:
+                    print("Error al iniciar el proceso, no encontrado")
+                    logging.warning("Failed to find process" + name)
+                else:
+                    logging.info("Process started: " + name)
+        
+            elif op == 4:
+                name = input("Ingrese el nombre del proceso a detener: ")
+                status = scan_process.stop_process(name)
+                if status == False:
+                    print("Error al detener el proceso.")
+                    logging.warning("Failed to find process" + name)
+                else:
+                    logging.info("Process stopped: " + name)
+        
+        elif op == 99:
+            os.system("cls")
+            break
+
+        else:
+            print("Opción inválida.")
+            sleep(2)
+            os.system("cls")
+            continue
 
 
 def organizer(content, output):
@@ -93,6 +162,7 @@ def menu():
     [3]Analizar imagen
     [4]Analizar PDF
     [5]Analizar cualquier otro archivo
+    [6]Analizar procesos (WIN)
     [99]Salir''')
 
     try:
@@ -118,6 +188,7 @@ if __name__ == "__main__":
 
     #En caso de que el usuario ingrese un parámetro, se ejecuta directo la función
     if args.file_txt:
+        print("Iniciando escaneo. . .")
         logging.info('User txt file parameter.')
         content = args.file_txt.read().split()
         organizer(content, args.output)
@@ -138,7 +209,7 @@ if __name__ == "__main__":
                 logging.info('Good bye!')
                 op = False
 
-            elif op in range(1,6):
+            elif op in range(1,7):
                 #Link
                 if op == 1:
                     links = []
@@ -229,7 +300,17 @@ if __name__ == "__main__":
                         logging.info("Correct file analysis")
                     else:
                         print("Error al analizar el archivo.")
-                        logging.error("Error in file analysis")   
+                        logging.error("Error in file analysis")  
+
+                #Procesos
+                elif op == 6:
+                    try:
+                        test = os.uname()
+                        if test[0] == "Linux":
+                            print("Lo siento, esta función es sólo para windows:(")
+                    except AttributeError:
+                        logging.info("Scan process started.")
+                        menu_process()
             
             else:
                 print("Opción inválida.")

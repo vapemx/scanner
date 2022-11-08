@@ -18,3 +18,4 @@ urllib3==1.26.12
 virustotal-python==1.0.0
 vt-py==0.17.1
 yarl==1.8.1
+psutil==5.9.3

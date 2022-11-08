@@ -62,3 +62,4 @@ De manera opcional podemos agregar un archivo de salida.
 - [Análisis de páginas web](https://github.com/vapemx/scanner/wiki/Descripción-de-Funciones#análisis-de-páginas-web)
 - [Análisis de PDFs](https://github.com/vapemx/scanner/wiki/Descripción-de-Funciones#análisis-de-pdfs)
 - [Análisis de IPs](https://github.com/vapemx/scanner/wiki/Descripción-de-Funciones#análisis-de-ips)
+- [Análisis de procesos](https://github.com/vapemx/scanner/wiki/Descripción-de-Funciones#análisis-de-procesos)(sólo WIN, interactivo)
