@@ -34,7 +34,7 @@ A continuación se desplegará un menú interactivo donde podemos elegir qué es
 ### Parámetros
 
 Si queremos escanear por lotes primero debemos de crear un archivo de texto (.txt) en donde se escriba
-lo que se desea analizar.
+lo que se desea analizar. El programa detectará automáticamente qué es cada cosa.
 
 Ejemplo
 
@@ -51,6 +51,8 @@ Una vez que tengamos creado el archivo de entrada, procedemos a ejecutar el cód
 De manera opcional podemos agregar un archivo de salida.
 
 `py scanner.py --file entrada.txt --output salida.txt`
+
+*Esto tomará y arrojará los archivos tomando en cuenta el directorio raiz del script, en caso de querer lo contrario, escribir la ruta del (los archivos).
 
 
 ### Herramientas
