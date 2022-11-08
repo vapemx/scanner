@@ -55,7 +55,7 @@ De manera opcional podemos agregar un archivo de salida.
 *Esto tomará y arrojará los archivos tomando en cuenta el directorio raiz del script, en caso de querer lo contrario, escribir la ruta del (los archivos).
 
 
-### Herramientas
+## Funciones
 
 - [Análisis de archivos en general](https://github.com/vapemx/scanner/wiki/Descripción-de-Funciones#análisis-de-archivos-en-general)
 - [Análisis de imágenes](https://github.com/vapemx/scanner/wiki/Descripción-de-Funciones#análisis-de-imágenes)
