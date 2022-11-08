@@ -15,11 +15,13 @@ def organizer(content, output):
     links = []
     key = None
     for element in content:
-        output.write("-----------------------------------------------------")
+        output.write("\n\n-----------------------------------------------------")
         #El elemento es una imagen
         if re.search('.png', element) or re.search('.jpg', element) or re.search('.jpeg', element):
-            scan_img.img_metadata(element, output)
+            succes = scan_img.img_metadata(element, output)
             logging.info("img analyzed")
+            if succes == False:
+                logging.error("Encoding img metadata error.")
 
         #El elemento es un pdf
         elif re.search('.pdf', element):

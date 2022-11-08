@@ -15,7 +15,7 @@ def img_metadata(imagename, output):
         "Image is Animated": getattr(image, "is_animated", False),
         "Frames in Image": getattr(image, "n_frames", 1)
 }
-    output.write("----Image metadata----\n\n")
+    output.write("\n----Image metadata----\n\n")
     for label, value in info_dict.items():
         output.write(f"{label:25}: {value}" + "\n")
 
@@ -27,5 +27,10 @@ def img_metadata(imagename, output):
         data = exifdata.get(tag_id)
 
         if isinstance(data, bytes):
-            data = data.decode(encoding="utf-16")
-        output.write(f"{tag:25}: {data}"+ "\n")
+            data = data.decode("utf-8", "replace")
+        try:
+            output.write(f"{tag:25}: {data}"+ "\n")
+        except:
+            succes_out = False
+
+    return succes_out
