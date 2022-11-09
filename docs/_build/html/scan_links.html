@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="es" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>scan_links module &mdash; documentación de SCANNER - 0.1</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+        <script src="_static/translations.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Índice" href="genindex.html" />
+    <link rel="search" title="Búsqueda" href="search.html" />
+    <link rel="next" title="scan_pdf module" href="scan_pdf.html" />
+    <link rel="prev" title="scan_img module" href="scan_img.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> SCANNER
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Buscar documentos" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">Módulos</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="nmapscan.html">nmapscan module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scan_files.html">scan_files module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scan_img.html">scan_img module</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">scan_links module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#scan_links.scan_link"><code class="docutils literal notranslate"><span class="pre">scan_link()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scan_pdf.html">scan_pdf module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scan_process.html">scan_process module</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">SCANNER</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">Módulos</a></li>
+      <li class="breadcrumb-item active">scan_links module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/scan_links.rst.txt" rel="nofollow"> Ver código fuente de la página</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-scan_links">
+<span id="scan-links-module"></span><h1>scan_links module<a class="headerlink" href="#module-scan_links" title="Enlace permanente a este encabezado"></a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="scan_links.scan_link">
+<span class="sig-prename descclassname"><span class="pre">scan_links.</span></span><span class="sig-name descname"><span class="pre">scan_link</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key_value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">links</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scan_links.html#scan_link"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#scan_links.scan_link" title="Enlazar permanentemente con esta definición"></a></dt>
+<dd></dd></dl>
+<p>Esta función realiza un escaneo de riesgo de links a través de virus total.<br><br>
+
+  Para esta función es necesario contar con una llave API de virus total.<br><br>
+  
+  Una vez iniciada la función en el modo interactivo, se le pide al usuario que ingrese el link a escanear<br><br>
+  
+  En caso de utilizar el programa a través de parámetros, los links que se encuentren se tomarán automáticamente.<br><br>
+  
+  Es importante resaltar que los links deben contener al inicio http[s]:// para poder ser analizados, de lo contrario, el link se omitirá.<br><br>
+  
+  Posteriormente se le pedirá al usuario que ingrese su llave API (en caso de que no lo haya hecho ya).<br><br>
+  
+  El resultado se arrojará en en un archivo xlsx (excel) en la ruta del script.</p>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Pie de página">
+        <a href="scan_img.html" class="btn btn-neutral float-left" title="scan_img module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Anterior</a>
+        <a href="scan_pdf.html" class="btn btn-neutral float-right" title="scan_pdf module" accesskey="n" rel="next">Siguiente <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Derechos de autor 2022, various.</p>
+  </div>
+
+  Compilado con <a href="https://www.sphinx-doc.org/">Sphinx</a> usando un
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">tema</a>
+    proporcionado por <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

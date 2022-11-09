@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="es" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SCANNER &mdash; documentación de SCANNER - 0.1</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+        <script src="_static/translations.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Índice" href="genindex.html" />
+    <link rel="search" title="Búsqueda" href="search.html" />
+    <link rel="next" title="Módulos" href="modules.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="#" class="icon icon-home"> SCANNER
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Buscar documentos" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">Módulos</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">SCANNER</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="#" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">SCANNER</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/index.rst.txt" rel="nofollow"> Ver código fuente de la página</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="scanner">
+<h1>SCANNER<a class="headerlink" href="#scanner" title="Enlace permanente a este encabezado"></a></h1>
+<p>Con este escanner podrás realizar análisís rápidos de archivos, direcciones IPs,
+páginas web y extraer los metadatos de imágenes o PDFs, ya sea individualmente o por lotes.</p>
+<p><strong>Instalación</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre"></span>
+<span class="pre">https://github.com/vapemx/scanner.git</span><br>
+<span class="pre">cd</span> <span class="pre">scanner</span><br>
+<span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-r</span> <span class="pre">requirements.txt</span>
+<span class="pre"></span></code></p>
+<ul class="simple">
+<li><p>Como prerequisito, es necesario tener una llave API de virus total para ciertas funcionalidades.</p></li>
+</ul>
+<p><strong>Uso</strong></p>
+<p>Hay dos maneras de usar el scanner, de forma interactiva (diseñado para escaneo individual) o a través de parámetros (por lotes).</p>
+<ul class="simple">
+<li><p>El correcto funcionamiento de cada herramienta está sujeto a las entradas que se le otorguen y acceso a llaves API</p></li>
+</ul>
+<p><em>Interactivo</em></p>
+<p>Para usar este modo tenemos que abrir nuestra consola y ejecutar el script.</p>
+<p><cite>py scanner.py</cite></p>
+<p>A continuación se desplegará un menú interactivo donde podemos elegir qué es lo que queremos utilizar.</p>
+<p><em>Parámetros</em></p>
+<p>Si queremos escanear por lotes primero debemos de crear un archivo de texto (.txt) en donde se escriba
+lo que se desea analizar. El programa detectará automáticamente qué es cada cosa.</p>
+<p>Ejemplo</p>
+<p><code class="docutils literal notranslate"><span class="pre"></span>
+<span class="pre">imagen1.png</span><br>
+<span class="pre">imagen2.jpg</span><br>
+<span class="pre">https://facebook.com</span><br>
+<span class="pre">archivo1.pdf</span><br>
+<span class="pre">archivo2.docx</span><br>
+<span class="pre">192.211.146.103</span>
+<span class="pre"></span></code></p>
+<p>Una vez que tengamos creado el archivo de entrada, procedemos a ejecutar el código.
+De manera opcional podemos agregar un archivo de salida.</p>
+<p><cite>py scanner.py --file entrada.txt --output salida.txt</cite></p>
+<ul class="simple">
+<li><p>Esto tomará y arrojará los archivos tomando en cuenta el directorio raiz del script, en caso de querer lo contrario, escribir la ruta del (los archivos).</p></li>
+</ul>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">Módulos</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="nmapscan.html">nmapscan module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scan_files.html">scan_files module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scan_img.html">scan_img module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scan_links.html">scan_links module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scan_pdf.html">scan_pdf module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scan_process.html">scan_process module</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Enlace permanente a este encabezado"></a></h1>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Índice</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Índice de Módulos</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Página de Búsqueda</span></a></p></li>
+</ul>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Pie de página">
+        <a href="modules.html" class="btn btn-neutral float-right" title="Módulos" accesskey="n" rel="next">Siguiente <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Derechos de autor 2022, various.</p>
+  </div>
+
+  Compilado con <a href="https://www.sphinx-doc.org/">Sphinx</a> usando un
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">tema</a>
+    proporcionado por <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
