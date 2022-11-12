@@ -129,6 +129,7 @@ def organizer(content, output):
             if fs:
                 logging.info("Correct file analysis")
             else:
+                output.write("\nNo se pudo analizar: " + element)
                 logging.error("Error in file analysis")    
     
     #Si hay links para analizar
