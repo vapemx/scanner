@@ -217,7 +217,12 @@ if __name__ == "__main__":
                     logging.info('User menu choice [1]')
                     while True:
                         link = input("Ingrese el link a analizar con formato http[s] o [q] para salir: ")
-                        if re.search(r'(http\:\/\/|https\:\/\/)([a-z0-9][a-z0-9\-]*\.)+[a-z0-9][a-z0-9\-]', link):
+
+                        if ip == "q":
+                            logging.info("User exit.")
+                            break
+
+                        elif re.search(r'(http\:\/\/|https\:\/\/)([a-z0-9][a-z0-9\-]*\.)+[a-z0-9][a-z0-9\-]', link):
                             links.append(link)
                             break
                         else:
@@ -240,8 +245,13 @@ if __name__ == "__main__":
                 elif op == 2:
                     logging.info('User menu choice [2]')
                     while True:
-                        ip = input("Ingrese la IP a analiazr: ")
-                        if re.search(r'((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.){3}(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])', ip):
+                        ip = input("Ingrese la IP a analizar o [q] para salir: ")
+
+                        if ip == "q":
+                            logging.info("User exit.")
+                            break
+
+                        elif re.search(r'((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.){3}(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])', ip):
                             print("Analizando IP...")
                             logging.info("Starting IP analysis")
                             nmapscan.scan_ip(ip, args.output)
@@ -255,13 +265,14 @@ if __name__ == "__main__":
 
                     while True:
                         img = input("Ingrese la imagen a analizar o [q] para salir: ")
-                        if re.search('.png', img) or re.search('.jpg', img) or re.search('.jpeg', img):
+                        
+                        if img == "q":
+                            logging.info("User exit.")
+                            break
+
+                        elif re.search('.png', img) or re.search('.jpg', img) or re.search('.jpeg', img):
                             scan_img.img_metadata(img, args.output)
                             logging.info("img analyzed")
-                            break
-                        
-                        elif img == "q":
-                            logging.info("User exit.")
                             break
 
                         else:
@@ -273,7 +284,12 @@ if __name__ == "__main__":
                     logging.info('User menu choice [4]')
                     while True:
                         pdf = input("\nIngrese el archivo pdf a analizar o [q] para salir: ")
-                        if re.search('.pdf', pdf):
+                        
+                        if pdf == "q":
+                            logging.info("User exit.")
+                            break
+
+                        elif re.search('.pdf', pdf):
                             try:
                                 scan_pdf.metadata(pdf, args.output)
                                 logging.info("PDF analyzed")
@@ -281,16 +297,17 @@ if __name__ == "__main__":
                                 print("PDF no encontrado.")
                                 logging.error("PDF not found.")
                         
-                        elif pdf == "q":
-                            logging.info("User exit.")
-                            break
                         else:
                             print("El archivo no es un PDF.")
                 
                 #Archivo
                 elif op == 5:
                     logging.info('User menu choice [5]')
-                    file = input("Ingrese el nombre del archivo a analizar: ")
+                    file = input("Ingrese el nombre del archivo a analizar o [q] para salir: ")
+
+                    if file == "q":
+                        break
+
                     if not key:
                         print("Ingrese su API key de virus total")
                         key = getpass()

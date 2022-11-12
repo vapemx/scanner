@@ -30,6 +30,7 @@ def img_metadata(imagename, output):
             data = data.decode("utf-8", "replace")
         try:
             output.write(f"{tag:25}: {data}"+ "\n")
+            succes_out = True
         except:
             succes_out = False
 
