@@ -227,6 +227,8 @@ if __name__ == "__main__":
                             break
                         else:
                             print("Formato incorrecto")
+                    else:
+                        break
                     
                     if not key:
                         print("Ingrese su API key de virus total")
