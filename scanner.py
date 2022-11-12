@@ -240,7 +240,7 @@ if __name__ == "__main__":
                 elif op == 2:
                     logging.info('User menu choice [2]')
                     while True:
-                        ip = input("Ingrese la IP a analiazr: ")
+                        ip = input("Ingrese la IP a analizar: ")
                         if re.search(r'((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.){3}(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])', ip):
                             print("Analizando IP...")
                             logging.info("Starting IP analysis")
