@@ -9,7 +9,7 @@ Con este escanner podrás realizar análisís rápidos de archivos, direcciones 
 ## Instalación
 
 ```
-https://github.com/vapemx/scanner.git
+git clone https://github.com/vapemx/scanner.git
 cd scanner
 pip install -r requirements.txt
 ```
